@@ -138,3 +138,5 @@ ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 3306
 CMD ["mariadbd"]
+
+RUN chown -R mysql:mysql /etc/mysql
