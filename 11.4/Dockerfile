@@ -9,8 +9,8 @@ RUN set -x \
 RUN groupadd -r mysql && useradd -r -g mysql mysql --home-dir /var/lib/mysql && userdel --remove ubuntu
 
 # add gosu for easy step-down from root
-# https://github.com/tianon/gosu/releases
-# gosu key is B42F6819007F00F88E364FD4036A9C25BF357DD4
+# https://github.com/appscode-images/gosu/releases
+# gosu key is B40CA2528AA594E4D5EB1A4A465B649B013DFC54
 ENV GOSU_VERSION 1.19
 
 ARG GPG_KEYS=177F4010FE56CA3336300305F1656F24C74CD1D8
@@ -44,11 +44,11 @@ RUN set -eux; \
 		wget; \
 	rm -rf /var/lib/apt/lists/*; \
 	dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')"; \
-	wget -q -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch"; \
-	wget -q -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch.asc"; \
+	wget -q -O /usr/local/bin/gosu "https://github.com/appscode-images/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch"; \
+    wget -q -O /usr/local/bin/gosu.asc "https://github.com/appscode-images/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch.asc"; \
 	GNUPGHOME="$(mktemp -d)"; \
 	export GNUPGHOME; \
-	gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4; \
+	gpg --batch --keyserver hkps://keys.openpgp.org --recv-keys B40CA2528AA594E4D5EB1A4A465B649B013DFC54; \
 	for key in $GPG_KEYS; do \
 		gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "$key"; \
 	done; \
